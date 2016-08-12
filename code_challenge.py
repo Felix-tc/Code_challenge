@@ -26,13 +26,12 @@ if __name__ == '__main__':
 
 
     for line in listings:
-        a=line['title'] #get the title for each listings item
         count = 0 # initialize the number to co-incide with the matched_list
         for lines in products:
             if line['manufacturer'] == lines['manufacturer']: #check manufacturer first because the data is in both files. Easiest check
-                if a.find(' '+lines['model']+' ') > -1: # check for the name of the model in the title
+                if line['title'].find(' '+lines['model']+' ') > -1: # check for the name of the model in the title (ensure that the model name won't be part of another model name with spaces)
                     if 'family' in lines: #double check with family, if possible
-                        if a.find(lines['family']+' ') > -1: # when checking for the model, to ensure that it's not part of another product's name look for a space before and after
+                        if line['title'].find(lines['family']+' ') > -1: # when checking for the model, to ensure that it's not part of another product's name look for a space before and after
                             matched_list[count]['listings'].append(line) # add the listing value to the appropraite product_name, array set up before
                             count +=1
                             break
